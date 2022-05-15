@@ -5,20 +5,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="JSmyweb.js"></script>
+    <link rel="stylesheet" href="myWeb.css">
     <title>Contact Us Page</title>
 </head>
-<body style="background-color: rgba(69, 137, 91, 0.377); font-family: Monospace;">
+<body>
+  <nav class="topNav">
+    <ul>
+        <li><a href="HomePage.html">Home</a></li>
+        <li><a href="Untitled-2.html">Contact Us</a></li>
+    </ul>
+</nav>
   <header class="header">
-    <h1>Tal's WEB</h1>
+    <h1>Contact Us</h1>
   </header>
-        <div style="text-align:center">
-          <h1 style="color: rgb(179, 81, 81); font-size: 80px; font-family: Monospace;" >Contact Us</h1>
+        <div class="FormCont">
+          
+          
           <p id="text1">Swing by for a cup of coffee, or leave us a message:</p>
-            <img src="../static/snopy.jpg" style=" background-color: lightgrey;
-            width: 250px;
-            border: 5px solid rgb(210, 96, 96);
-            padding: 10px;
-            margin: 10px;">
+            <img src="../static/contact.jpg" id="imgContact">
           
             <form action="/action_page.php">
               <label for="fname">First Name</label>
@@ -43,19 +48,32 @@
                 <option value="UK">UK</option>
               </select> <br> <br> <br>
             </form>
-            <button onclick="displayResult()">Submit</button>
-            
-            <script>
+            <button id="btn1" onclick="myFunction()">Submit</button>
+           
+            <div  id="try1">
+              <div class="wave"></div>
+              <div class="wave"></div>
+              <div class="wave"></div>
+              <div class="wave"></div>
+              <div class="wave"></div>
+              <div class="wave"></div>
+              <div class="wave"></div>
+              <div class="wave"></div>
+              <div class="wave"></div>
               
-              function displayResult() {
-                
-              document.getElementById("text1").innerHTML = "we will keep in touch!" ;}
-             </script>
+            </div>
+              
+              <div id="sent">Your request has been sent</div>
+              <br>
+              <br><br>
+              <br>
+              <br><br>
+              
+          
+            
+            
            
         </div>
-    <nav>
-        <a href="HomePage.html">Back to home page</a> |
-    
-    </nav>
+
 </body>
 </html>
