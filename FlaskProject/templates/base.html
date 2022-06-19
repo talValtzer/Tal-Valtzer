@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename = 'myWeb.css')}}">
+<script defer src="{{url_for('static', filename = 'JSmyweb.js')}}"></script>
+
+
+</head>
+<body>
+{% include('nav.html') %}
+{% block tohen %}
+        <h1>Message from BASE Page!</h1>
+{% endblock %}
+
+
+</body>
+</html>

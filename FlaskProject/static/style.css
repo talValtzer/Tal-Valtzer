@@ -1,0 +1,16 @@
+
+h1 {
+    color: #ff9999;
+    text-align: center;
+}
+
+.container {
+
+    border: #5f2141 3px solid;
+    border-radius: 5px;
+    margin: 10px auto;
+    border-radius: 20%;
+    width: 50%;
+    padding: 10px;
+    align-content: center;
+}
