@@ -8,6 +8,11 @@ from flask import Flask
 
 app = Flask(__name__)
 
+app.secret_key = '123'
+app.config['SESSION_PERMANENT'] = True
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=40)
+
+
 @app.route('/')
 def homepage_func():
     return render_template('HomePage.html')
@@ -27,63 +32,70 @@ def about_page():
                            user_info=user_info,
 
                            hobbies=hobbies)
-@app.route('/log_in', methods=['GET', 'POST'])
-def login_func():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        if username in user_dict:
-            pas_in_dict = user_dict[username]
-            if pas_in_dict == password:
-                session['username'] = username
-                session['logedin'] = True
-                return render_template('LogIn.html',
-                                       message='Success',
-                                       username=username)
-            else:
-                return render_template('LogIn.html',
-                                       message='Wrong password!')
-        else:
-            return render_template('LogIn.html',
-                                   message='Please sign in!')
-    return render_template('LogIn.html')
 
 
 @app.route('/assignment3_2', methods=['GET', 'POST'])
 def ass3():
-    if request.method=='GET':
+    if request.method == 'GET':
         if 'user_name' in request.args:
             user_name = request.args['user_name']
             if user_name in user_dict:
                 return render_template('assignment3_2.html',
                                        user_name=user_name,
                                        user_email=user_dict[user_name][0],
-                                       user_Firstname= user_dict[user_name][1],
+                                       user_Firstname=user_dict[user_name][1],
                                        user_Lastname=user_dict[user_name][2],
                                        user_age=user_dict[user_name][3]
                                        )
+            elif len(user_name) == 0:
+                return render_template('assignment3_2.html',
+                                       user_dict=user_dict)
 
             else:
                 return render_template('assignment3_2.html',
-                                       message='Product not found.')
+                                       message='User not found.')
 
+    if request.method == 'POST':
 
-    return render_template('assignment3_2.html',
-                           user_dict=user_dict)
+        reg_username = request.form['user_name']
+        reg_userEmail = request.form['user_email']
+        reg_Firstname = request.form['user_Firstname']
+        reg_Lastname = request.form['user_Lastname']
+        reg_age = request.form['user_age']
+        session['user_name'] = reg_username
+        session['user_email'] = reg_userEmail
+        session['user_Firstname'] = reg_Firstname
+        session['user_Lastname'] = reg_Lastname
+        session['user_age'] = reg_age
+        session['Registered'] = True
+        if reg_username in user_dict:
+            return render_template('assignment3_2.html', message2='user is already exist!!')
+        else:
+            new_user = {reg_username: [reg_userEmail, reg_Firstname, reg_Lastname, reg_age]}
+            user_dict.update(new_user)
+            return render_template('assignment3_2.html', message2='registration succeeded')
+        return render_template('assignment3_2.html')
 
+    return render_template('assignment3_2.html')
 
 
 user_dict = {
-    'Tal_val': ['Tal@gmail.com','Tal', 'Val', '25']
+    'Tal_val': ['Tal@gmail.com', 'Tal', 'Val', '25'],
+    'YoniBayoni': ['yon@gmail.com', 'Yoni', 'Rnoev', '25']
 
 }
+
+
+@app.route('/log_out')
+def logout():
+    session['Registered'] = False
+    session.clear()
+    return redirect(url_for('ass3'))
 
 
 @app.route('/')
 def hello_world():  # put application's code here
     return 'Hello World!'
-
-
 
 
 if __name__ == '__main__':
