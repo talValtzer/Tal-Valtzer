@@ -13,7 +13,7 @@ app.config['SESSION_PERMANENT'] = True
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=40)
 
 
-@app.route('/')
+@app.route('/HomePage')
 def homepage_func():
     return render_template('HomePage.html')
 
@@ -81,7 +81,10 @@ def ass3():
 
 user_dict = {
     'Tal_val': ['Tal@gmail.com', 'Tal', 'Val', '25'],
-    'YoniBayoni': ['yon@gmail.com', 'Yoni', 'Rnoev', '25']
+    'YoniBayoni': ['yon@gmail.com', 'Yoni', 'Rnoev', '25'],
+    'Inbaraa': ['inbo@gmail.com', 'Inbar', 'Duv', '27'],
+    'Rotemdi': ['rotem@gmail.com', 'Rotem', 'Didi', '26'],
+    'Coralel': ['Cori@gmail.com', 'Coral', 'El', '26']
 
 }
 
@@ -95,7 +98,7 @@ def logout():
 
 @app.route('/')
 def hello_world():  # put application's code here
-    return 'Hello World!'
+    return redirect('/HomePage')
 
 
 if __name__ == '__main__':
