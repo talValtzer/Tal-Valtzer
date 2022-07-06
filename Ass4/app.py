@@ -7,11 +7,17 @@ import mysql.connector
 
 from flask import Flask
 
+
 app = Flask(__name__)
+
+
+##assignment_4
+from assignment_4.assignment_4 import assignment_4
+app.register_blueprint(assignment_4)
 
 app.secret_key = '123'
 app.config['SESSION_PERMANENT'] = True
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=40)
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=2)
 
 
 @app.route('/HomePage')
@@ -106,29 +112,8 @@ if __name__ == '__main__':
     app.run()
 
 
-def interact_db(query, query_type: str):
-        return_value = False
-        connection = mysql.connector.connect(host='localhost',
-                                             user='root',
-                                             passwd='root',
-                                             database='users')
-        cursor = connection.cursor(named_tuple=True)
-        cursor.execute(query)
-        #
+# ----------------------------------- import -----------------------------------
+import json
 
-        if query_type == 'commit':
-            # Use for INSERT, UPDATE, DELETE statements.
-            # Returns: The number of rows affected by the query (a non-negative int).
-            connection.commit()
-            return_value = True
 
-        if query_type == 'fetch':
-            # Use for SELECT statement.
-            # Returns: False if the query failed, or the result of the query if it succeeded.
-            query_result = cursor.fetchall()
-            return_value = query_result
-
-        connection.close()
-        cursor.close()
-        return return_value
 

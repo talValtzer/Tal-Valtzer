@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% set title='Assignment_4' %}
+
+{% block page_head_css %}
+    <link rel="stylesheet" href="{{ url_for('assignment_4.static', filename='css/assignment_4.css') }}"/>
+
+{% endblock %}
+{% block title %}Users{% endblock %}
+
+
+{% block tohen %}
+    <h1>User Page</h1>
+    <p>You can add new user, watch users list</p>
+
+    {% if session['msg'] %}
+        <h3 class="msg"> {{ session['msg'] }} </h3>
+    {% endif %}
+
+    <div class="containerForm">
+        <h2>Insert Form</h2>
+        <form action="/insert_user" method="post">
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">User Name:</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" name="user_name" placeholder="User name must be at least 5 chars" minlength="5">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">User Email:</label>
+                </div>
+                <div class="col-75">
+                    <input type="email" name="email" placeholder="xx@xx.xx"
+                           pattern='^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
+                           required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">User First Name:</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" name="first_name" placeholder="first name">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">User Last Name:</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" name="last_name" placeholder="last name">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">User Age:</label>
+                </div>
+                <div class="col-75">
+                    <input type="number" name="user_age" placeholder="age">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">User ID:</label>
+                </div>
+                <div class="col-75">
+                    <input type="Text" name="user_ID" placeholder="ID number 5-9 digits" pattern="[0-9]{5,9}">
+                </div>
+            </div>
+            <input type="submit">
+
+        </form>
+    </div>
+
+    <div class="containerForm">
+        <h2>Update Form</h2>
+        <form action="/update_user" method="post">
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">User Name:</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" name="user_name" placeholder="User name must be at least 5 chars" minlength="5">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">User Email:</label>
+                </div>
+                <div class="col-75">
+                    <input type="email" name="email" placeholder="xx@xx.xx"
+                           pattern='^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
+                           required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">User First Name:</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" name="first_name" placeholder="first name">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">User Last Name:</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" name="last_name" placeholder="last name">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">User Age:</label>
+                </div>
+                <div class="col-75">
+                    <input type="number" name="user_age" placeholder="age">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">User ID:</label>
+                </div>
+                <div class="col-75">
+                    <input type="Text" name="user_ID" placeholder="ID number 5-9 digits" pattern="[0-9]{5,9}">
+                </div>
+            </div>
+            <input type="submit" value="Update" class="button">
+
+        </form>
+    </div>
+
+
+
+
+
+    {% for user in users %}
+        <div class="container">
+            {#            {{ user }}#}
+            <h3>{{ user.user_name }}</h3>
+            <h4>Email: {{ user.email }}</h4>
+            <h4>First name: {{ user.first_name }}</h4>
+            <h4>Last name: {{ user.last_name }}</h4>
+            <h4>Age: {{ user.age }}</h4>
+            <h4>ID: {{ user.user_ID }}</h4>
+            <form action="/delete_user" method="post">
+                <input type="hidden" name="user_ID" value="{{ user.user_ID }}">
+                <input type="hidden" name="user_name" value="{{ user.user_name }}">
+                <input type="submit" value="Delete" id="delete">
+            </form>
+
+
+        </div>
+    {% endfor %}
+
+{% endblock %}
+
+{% block page_body_footer %}{% endblock %}
+
+{% block page_body_js %}
+    <script src="{{ url_for('about.static', filename='js/about.js') }}"></script>
+{% endblock %}
